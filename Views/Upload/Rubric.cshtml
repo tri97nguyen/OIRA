@@ -1,0 +1,12 @@
+@model Models.UploadRubricIdData
+@{
+    ViewData["Title"] = "Upload Rubric";
+    Layout = "_Layout";
+}
+
+<form asp-action="Rubric" asp-controller="Upload" enctype="multipart/form-data">
+
+    <input asp-for="uploadFile" />
+
+    <input type="submit" />
+</form>

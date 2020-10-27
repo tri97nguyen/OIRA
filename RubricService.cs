@@ -41,7 +41,7 @@ namespace parser
                 _appDbContext.Add(rubric);
             }
             _appDbContext.SaveChanges();
-            return _appDbContext.Rubrics.ToList();
+            return rubrics;
         }
     }
 }

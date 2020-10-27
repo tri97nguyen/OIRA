@@ -1,11 +1,12 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace parser.Models
 {
-    public class Rubric {
+    public class Rubric
+    {
         public int Id { get; set; }
-        
+
         public virtual School School { get; set; }
         public virtual int SchoolId { get; set; }
 

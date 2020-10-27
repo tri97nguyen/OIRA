@@ -31,7 +31,7 @@ namespace parser.Controllers
         public IActionResult Rubric(UploadRubricIdData rubricIdData)
         {
             var rubrics = _rubricService.ParseUploadFileToRubrics(rubricIdData);
-            foreach(var rubric in rubrics) System.Console.WriteLine($"{rubric.RubricId} {rubric.Name}");
+            foreach(var rubric in rubrics) System.Console.WriteLine($"{rubric.Code} {rubric.Name}");
             return RedirectToAction("Success");
         }
 

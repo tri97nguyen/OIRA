@@ -8,7 +8,7 @@ using parser.Data;
 namespace parser.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20201027041629_Add Rubric")]
+    [Migration("20201027050931_Add Rubric")]
     partial class AddRubric
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,8 +24,7 @@ namespace parser.Migrations
                         .HasColumnType("varchar(767)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("text");
 
                     b.HasKey("RubricId");
 

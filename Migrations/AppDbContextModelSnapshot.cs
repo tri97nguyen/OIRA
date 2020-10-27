@@ -22,8 +22,7 @@ namespace parser.Migrations
                         .HasColumnType("varchar(767)");
 
                     b.Property<string>("Name")
-                        .HasColumnType("varchar(50)")
-                        .HasMaxLength(50);
+                        .HasColumnType("text");
 
                     b.HasKey("RubricId");
 

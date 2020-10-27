@@ -11,7 +11,7 @@ namespace parser.Migrations
                 columns: table => new
                 {
                     RubricId = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(maxLength: 50, nullable: true)
+                    Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

@@ -16,19 +16,35 @@ namespace parser
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
+            Environment = env;
         }
 
         public IConfiguration Configuration { get; }
-
+        public IWebHostEnvironment Environment { get; set; }
+        public static string GetDatabasePassword(IConfiguration config)
+        {
+            return System.Environment.GetEnvironmentVariable("MySqlPassword");
+        }
+        public static string GetDatabaseConnectionString(IConfiguration config)
+        {
+            return String.Format(config["ConnectionStrings:OIRAMySql"], GetDatabasePassword(config));
+        }
+        internal string DatabasePassword { get { return GetDatabasePassword(Configuration); } }
+        public string DatabaseConnectionString { get { return GetDatabaseConnectionString(Configuration); } }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            Console.WriteLine($"connection string is {DatabaseConnectionString}");
             services.AddRazorPages();
             services.AddDbContextPool<AppDbContext>(
-                options => options.UseMySQL(Configuration.GetConnectionString("OIRAMySql")));
+            //options => options.UseSqlServer(Configuration.GetConnectionString("OIRA")));
+                options =>                     
+                    options.UseMySQL(DatabaseConnectionString)
+                
+            );
             services.AddScoped<RubricService>();
         }
 

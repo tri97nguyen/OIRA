@@ -28,9 +28,13 @@ namespace parser
         {
             return System.Environment.GetEnvironmentVariable("MySqlPassword");
         }
+        public static string GetDatabaseUsername(IConfiguration config)
+        {
+            return System.Environment.GetEnvironmentVariable("MySqlUsername");
+        }
         public static string GetDatabaseConnectionString(IConfiguration config)
         {
-            return String.Format(config["ConnectionStrings:OIRAMySql"], GetDatabasePassword(config));
+            return String.Format(config["ConnectionStrings:OIRAMySql"], GetDatabaseUsername(config), GetDatabasePassword(config));
         }
         internal string DatabasePassword { get { return GetDatabasePassword(Configuration); } }
         public string DatabaseConnectionString { get { return GetDatabaseConnectionString(Configuration); } }
@@ -41,9 +45,9 @@ namespace parser
             services.AddRazorPages();
             services.AddDbContextPool<AppDbContext>(
             //options => options.UseSqlServer(Configuration.GetConnectionString("OIRA")));
-                options =>                     
+                options =>
                     options.UseMySQL(DatabaseConnectionString)
-                
+
             );
             services.AddScoped<RubricService>();
         }

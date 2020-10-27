@@ -1,7 +1,6 @@
-<<<<<<< HEAD
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
->>>>>>> main
+
 
 namespace parser.Models
 {

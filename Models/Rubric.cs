@@ -8,6 +8,7 @@ namespace parser.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public string RubricId { get; set; }
+        [StringLength(50)]
         public string Name { get; set; }
     }
 }

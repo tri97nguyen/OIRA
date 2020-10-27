@@ -2,7 +2,7 @@
 
 namespace parser.Migrations
 {
-    public partial class Addrubric : Migration
+    public partial class AddRubric : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -11,7 +11,7 @@ namespace parser.Migrations
                 columns: table => new
                 {
                     RubricId = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(maxLength: 50, nullable: true)
                 },
                 constraints: table =>
                 {

@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
 using parser.Data;
+using MySqlConnector;
 
 namespace parser
 {
@@ -27,7 +28,7 @@ namespace parser
         {
             services.AddRazorPages();
             services.AddDbContextPool<AppDbContext>(
-                options => options.UseSqlServer(Configuration.GetConnectionString("OIRA")));
+                options => options.UseMySQL(Configuration.GetConnectionString("OIRAMySql")));
             services.AddScoped<RubricService>();
         }
 

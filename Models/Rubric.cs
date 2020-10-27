@@ -9,7 +9,7 @@ namespace parser.Models
         public int Id { get; set; }
 
         public virtual School School { get; set; }
-        public virtual int SchoolId { get; set; }
+        public virtual int? SchoolId { get; set; }
 
         [StringLength(2)]
         public string Code { get; set; }

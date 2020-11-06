@@ -1,36 +1,40 @@
+using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace parser.Models
 {
+
+    // TODO: finish XML comments
+    /// <summary>
+    /// 
+    /// </summary>    
     public class Rubric
     {
-        public int Id { get; set; }
-
-        public virtual School School { get; set; }
-        public virtual int? SchoolId { get; set; }
 
         [StringLength(2)]
-        public string Code { get; set; }
+        public string Id { get; set; }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         [StringLength(50)]
         public string Name { get; set; }
 
-
-        public string Data { get; set; }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <value></value>
         public byte[] File { get; set; }
 
 
         public virtual ICollection<RubricCriteria> RubricCriteria { get; set; }
-        public virtual ICollection<Score> Scores { get; set; }
+        public virtual ICollection<Artifact> Artifacts { get; set; }
+        public virtual ICollection<Faculty> Faculty { get; set; }
+
     }
-    // public class Rubric
-    // {   
-    //     [Key]
-    //     [DatabaseGenerated(DatabaseGeneratedOption.None)]
-    //     public string RubricId { get; set; }
-    //     public string Name { get; set; }
-    // }
+
 }

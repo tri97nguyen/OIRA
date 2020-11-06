@@ -30,7 +30,7 @@ namespace parser
         private Rubric MapLineToRubric(string line)
         {
             string[] column = line.Split(',');
-            return new Rubric { Code = column[0], Name = column[1] };
+            return new Rubric { Id = column[0], Name = column[1] };
         }
         public IEnumerable<Rubric> ParseUploadFileToRubrics(UploadRubricIdData rubricIdData)
         {
@@ -45,7 +45,7 @@ namespace parser
         }
         private void ForeignConstraintTemporaryHelper()
         {
-            
+
         }
     }
 }

@@ -1,19 +1,24 @@
+
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace parser.Models {
+namespace parser.Models
+{
 
     // TODO: finish XML comments
     /// <summary>
     /// 
     /// </summary>    
-    public class RubricCriteria {
+    public class RubricCriteria
+    {
         public int Id { get; set; }
-        
+
         public virtual Rubric Rubric { get; set; }
-        public int RubricId { get; set; }
+        public string RubricId { get; set; }
 
 
+        // TODO: this can be further normalized
         public string Name { get; set; }
 
         [Display(Name = "Score of 4")]
@@ -28,6 +33,11 @@ namespace parser.Models {
         [Display(Name = "Score of 1")]
         public string Desciption1 { get; set; }
 
+        [Display(Name = "Score of 0")]
+        public string Desciption0 { get; set; }
+
+
+        public virtual ICollection<Score> Scores { get; set; }
     }
 
 }

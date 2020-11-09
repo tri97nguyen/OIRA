@@ -42,7 +42,7 @@ namespace parser
             {
                 if (_appDbContext.Faculty.Find(faculty.Id) != null)
                 {
-                    _appDbContext.Update(faculty);
+                    _appDbContext.Update(_appDbContext.Faculty.Find(faculty.Id));
                 }
                 else
                 {

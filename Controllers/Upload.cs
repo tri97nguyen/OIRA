@@ -12,10 +12,12 @@ namespace parser.Controllers
     {
         private readonly RubricService _rubricService;
         private readonly CourseAndFacultyService _courseAndFacultyService;
-        public Upload(RubricService rubricService, CourseAndFacultyService courseAndFacultyService)
+        private readonly RubricAndFacultyService _rubricAndFacultyService;
+        public Upload(RubricService rubricService, CourseAndFacultyService courseAndFacultyService, RubricAndFacultyService rubricAndFacultyService)
         {
             _rubricService = rubricService;
             _courseAndFacultyService = courseAndFacultyService;
+            _rubricAndFacultyService = rubricAndFacultyService;
         }
         public string Index()
         {
@@ -25,9 +27,13 @@ namespace parser.Controllers
         {
             return "upload rubric success";
         }
-        public string SuccessFaculty()
+        public string SuccessCourseAndFaculty()
         {
-            return "upload faculty success";
+            return "upload course and faculty success";
+        }
+        public string SuccessRubricAndFaculty()
+        {
+            return "upload rubric and faculty success";
         }
         public IActionResult Rubric()
         {
@@ -36,6 +42,10 @@ namespace parser.Controllers
         public IActionResult CourseAndFaculty()
         {
             return View(new UploadCourseAndFacultyData());
+        }
+        public IActionResult RubricAndFaculty()
+        {
+            return View(new UploadRubricAndFacultyData());
         }
         [HttpPost]
         public IActionResult Rubric(UploadRubricIdData rubricIdData)
@@ -52,7 +62,15 @@ namespace parser.Controllers
             foreach (var faculty in faculties) System.Console.WriteLine($"{faculty.Id} {faculty.FirstName} {faculty.LastName}");
             var courses = _courseAndFacultyService.ParseUploadFileToCourseSection(courseAndFacultyData);
             foreach (var course in courses) System.Console.WriteLine($"{course.Name} {course.CRN}");
-            return RedirectToAction("SuccessFaculty");
+            return RedirectToAction("SuccessCourseAndFaculty");
+        }
+
+        [HttpPost]
+        public IActionResult RubricAndFaculty(UploadRubricAndFacultyData rubricAndFacultyData)
+        {
+            var faculties = _rubricAndFacultyService.ParseUploadFileToFaculty(rubricAndFacultyData);
+            foreach (var faculty in faculties) System.Console.WriteLine($"{faculty.Id} {faculty.FirstName} {faculty.LastName} {faculty.RubricId}");
+            return RedirectToAction("SuccessRubricAndFaculty");
         }
 
 

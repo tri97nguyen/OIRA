@@ -51,6 +51,7 @@ namespace parser
             );
             services.AddScoped<RubricService>();
             services.AddScoped<CourseAndFacultyService>();
+            services.AddScoped<RubricAndFacultyService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

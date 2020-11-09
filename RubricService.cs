@@ -38,7 +38,14 @@ namespace parser
             var rubrics = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToRubric(line)).ToList();
             foreach (var rubric in rubrics)
             {
-                _appDbContext.Add(rubric);
+                if (_appDbContext.Rubrics.Find(rubric.Id) != null)
+                {
+
+                }
+                else
+                {
+                    _appDbContext.Add(rubric);
+                }
             }
             _appDbContext.SaveChanges();
             return rubrics;

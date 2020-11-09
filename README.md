@@ -1,4 +1,7 @@
 ## How to use
+Before using, need to configure database in appsettings.json to local db according to your local. Add environment variable for db password.
+
+
 to run project: `dotnet watch run` (`watch` will auto restart server on code change, omit to ignore change)\
 homepage: `localhost:5000`or `localhost:5001` (successful run will return page message `Upload homepage`)\
 upload route: `/upload/rubric`\

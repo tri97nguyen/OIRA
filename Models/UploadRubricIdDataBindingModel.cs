@@ -1,9 +1,9 @@
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace parser.Models
 {
     public class UploadRubricIdData
     {
-        public IFormFile uploadFile {get;set;}
-    }        
+        public IFormFile uploadFile { get; set; }
+    }
 }

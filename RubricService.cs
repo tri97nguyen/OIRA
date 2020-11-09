@@ -17,7 +17,7 @@ namespace parser
         {
             _appDbContext = appDbContext;
         }
-        
+
         private IEnumerable<string> ReadAsList(IFormFile file)
         {
             var result = new List<string>();
@@ -30,7 +30,7 @@ namespace parser
         private Rubric MapLineToRubric(string line)
         {
             string[] column = line.Split(',');
-            return new Rubric { RubricId = column[0], Name = column[1] };
+            return new Rubric { Id = column[0], Name = column[1] };
         }
         public IEnumerable<Rubric> ParseUploadFileToRubrics(UploadRubricIdData rubricIdData)
         {
@@ -41,7 +41,11 @@ namespace parser
                 _appDbContext.Add(rubric);
             }
             _appDbContext.SaveChanges();
-            return _appDbContext.Rubrics.ToList();
+            return rubrics;
+        }
+        private void ForeignConstraintTemporaryHelper()
+        {
+
         }
     }
 }

@@ -6,14 +6,15 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
+
+
 
 namespace parser
 {
-    public class RubricService
+    public class RubricAndFacultyService
     {
         private readonly AppDbContext _appDbContext;
-        public RubricService(AppDbContext appDbContext)
+        public RubricAndFacultyService(AppDbContext appDbContext)
         {
             _appDbContext = appDbContext;
         }
@@ -27,29 +28,32 @@ namespace parser
             }
             return result;
         }
-        private Rubric MapLineToRubric(string line)
+        private Faculty MapLineToFaculty(string line)
         {
             string[] column = line.Split(',');
-            return new Rubric { Id = column[0], Name = column[1] };
+            return new Faculty { Id = Convert.ToInt32(column[0]), FirstName = column[1], LastName = column[2], RubricId = column[3] };
         }
-        public IEnumerable<Rubric> ParseUploadFileToRubrics(UploadRubricIdData rubricIdData)
-        {
-            IEnumerable<string> content = ReadAsList(rubricIdData.uploadFile);
-            var rubrics = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToRubric(line)).ToList();
-            foreach (var rubric in rubrics)
-            {
-                if (_appDbContext.Rubrics.Find(rubric.Id) != null)
-                {
 
+        public IEnumerable<Faculty> ParseUploadFileToFaculty(UploadRubricAndFacultyData facultyData)
+        {
+            IEnumerable<string> content = ReadAsList(facultyData.uploadFile);
+            var faculties = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToFaculty(line)).ToList();
+            foreach (var faculty in faculties)
+            {
+                if (_appDbContext.Faculty.Find(faculty.Id) != null)
+                {
+                    _appDbContext.Update(_appDbContext.Faculty.Find(faculty.Id));
                 }
                 else
                 {
-                    _appDbContext.Add(rubric);
+                    _appDbContext.Add(faculty);
+
                 }
             }
             _appDbContext.SaveChanges();
-            return rubrics;
+            return faculties;
         }
+
         private void ForeignConstraintTemporaryHelper()
         {
 

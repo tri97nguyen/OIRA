@@ -1,0 +1,12 @@
+@model Models.UploadCourseAndFacultyData
+@{
+    ViewData["Title"] = "Upload Faculty And Course Section";
+    Layout = "_Layout";
+}
+
+<form asp-action="CourseAndFaculty" asp-controller="Upload" enctype="multipart/form-data">
+
+    <input asp-for="uploadFile" />
+
+    <input type="submit" />
+</form>

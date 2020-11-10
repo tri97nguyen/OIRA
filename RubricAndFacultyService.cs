@@ -8,7 +8,6 @@ using System.IO;
 using System.Linq;
 
 
-
 namespace parser
 {
     public class RubricAndFacultyService
@@ -31,26 +30,25 @@ namespace parser
         private Faculty MapLineToFaculty(string line)
         {
             string[] column = line.Split(',');
-            return new Faculty { Id = Convert.ToInt32(column[0]), FirstName = column[1], LastName = column[2], RubricId = column[3] };
+            var facultyId = int.Parse(column[0]);
+            var faculty = _appDbContext.Faculty.Find(facultyId);
+            if (faculty != null)
+            {
+                faculty.RubricId = column[3];
+                _appDbContext.SaveChanges();
+            }
+            else
+            {
+                faculty = new Faculty { Id = int.Parse(column[0]), FirstName = column[1], LastName = column[2], RubricId = column[3] };
+                _appDbContext.Add(faculty);
+            }
+            return faculty;
         }
 
         public IEnumerable<Faculty> ParseUploadFileToFaculty(UploadRubricAndFacultyData facultyData)
         {
             IEnumerable<string> content = ReadAsList(facultyData.uploadFile);
             var faculties = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToFaculty(line)).ToList();
-            foreach (var faculty in faculties)
-            {
-                if (_appDbContext.Faculty.Find(faculty.Id) != null)
-                {
-                    _appDbContext.Update(_appDbContext.Faculty.Find(faculty.Id));
-                }
-                else
-                {
-                    _appDbContext.Add(faculty);
-
-                }
-            }
-            _appDbContext.SaveChanges();
             return faculties;
         }
 

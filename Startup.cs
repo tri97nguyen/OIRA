@@ -44,9 +44,9 @@ namespace parser
             Console.WriteLine($"connection string is {DatabaseConnectionString}");
             services.AddRazorPages();
             services.AddDbContextPool<AppDbContext>(
-            //options => options.UseSqlServer(Configuration.GetConnectionString("OIRA")));
-                options =>
-                    options.UseMySQL(DatabaseConnectionString)
+            options => options.UseSqlServer(Configuration.GetConnectionString("OIRA"))
+                //options =>
+                //    options.UseMySQL(DatabaseConnectionString)
 
             );
             services.AddScoped<RubricService>();

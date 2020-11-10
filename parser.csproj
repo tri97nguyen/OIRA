@@ -13,13 +13,10 @@
     </PackageReference>
     <PackageReference Include="MySql.Data.EntityFrameworkCore" Version="8.0.22" />
     <PackageReference Include="MySqlConnector" Version="1.0.1" />
-<<<<<<< HEAD
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Migrations\" />
-=======
->>>>>>> 429061fa6f00fc092ce16843907658aceb8f5802
   </ItemGroup>
 
 </Project>

@@ -41,6 +41,7 @@ namespace parser
             {
                 faculty = new Faculty { Id = int.Parse(column[0]), FirstName = column[1], LastName = column[2], RubricId = column[3] };
                 _appDbContext.Add(faculty);
+                _appDbContext.SaveChanges();
             }
             return faculty;
         }

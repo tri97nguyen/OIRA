@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using parser.Data;
 using parser.Models;
@@ -7,7 +7,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Data.Entity.Migrations;
 
 namespace parser
 {
@@ -42,7 +41,9 @@ namespace parser
             {
                 if (_appDbContext.Faculty.Find(faculty.Id) != null)
                 {
-                    _appDbContext.Update(_appDbContext.Faculty.Find(faculty.Id));
+                    Faculty f = _appDbContext.Faculty.Find(faculty.Id);
+                    f.RubricId = faculty.RubricId;
+                    //_appDbContext.Update(_appDbContext.Faculty.Find(faculty.Id));
                 }
                 else
                 {

@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using parser.Data;
 using parser.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -15,7 +17,7 @@ namespace parser.Controllers
         }
         public IActionResult FacultyAndCourse()
         {
-            IList<Faculty> faculty =  this._appDbContext.Faculty.ToList();
+            IList<Faculty> faculty =  this._appDbContext.Faculty.Include(i => i.CourseSections).ToList();
             return View(faculty);
         }
         public string test()

@@ -20,9 +20,5 @@ namespace parser.Controllers
             IList<Faculty> faculty =  this._appDbContext.Faculty.Include(i => i.CourseSections).ToList();
             return View(faculty);
         }
-        public string test()
-        {
-            return "view homepage";
-        }
     }
 }

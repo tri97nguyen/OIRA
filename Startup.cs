@@ -80,7 +80,7 @@ namespace parser
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action}",
-                    defaults: new { controller = "Upload", action = "Index" }
+                    defaults: new { controller = "Upload", action = "Rubric" }
                 );
             });
         }

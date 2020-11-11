@@ -23,18 +23,10 @@ namespace parser.Controllers
         {
             return "Homepage for upload";
         }
-        public string SuccessRubric()
+        public IActionResult Success()
         {
-            return "upload rubric success";
-        }
-        public string SuccessCourseAndFaculty()
-        {
-            return "upload course and faculty success";
-        }
-        public string SuccessRubricAndFaculty()
-        {
-            return "upload rubric and faculty success";
-        }
+            return View();
+        }        
         public IActionResult Rubric()
         {
             return View(new UploadRubricIdData());
@@ -52,7 +44,7 @@ namespace parser.Controllers
         {
             var rubrics = _rubricService.ParseUploadFileToRubrics(rubricIdData);
             foreach(var rubric in rubrics) System.Console.WriteLine($"{rubric.Id} {rubric.Name}");
-            return RedirectToAction("SuccessRubric");
+            return RedirectToAction("Success");
         }
 
         [HttpPost]
@@ -62,7 +54,7 @@ namespace parser.Controllers
             foreach (var faculty in faculties) System.Console.WriteLine($"{faculty.Id} {faculty.FirstName} {faculty.LastName}");
             var courses = _courseAndFacultyService.ParseUploadFileToCourseSection(courseAndFacultyData);
             foreach (var course in courses) System.Console.WriteLine($"{course.Name} {course.CRN}");
-            return RedirectToAction("SuccessCourseAndFaculty");
+            return RedirectToAction("Success");
         }
 
         [HttpPost]
@@ -70,7 +62,7 @@ namespace parser.Controllers
         {
             var faculties = _rubricAndFacultyService.ParseUploadFileToFaculty(rubricAndFacultyData);
             foreach (var faculty in faculties) System.Console.WriteLine($"{faculty.Id} {faculty.FirstName} {faculty.LastName} {faculty.RubricId}");
-            return RedirectToAction("SuccessRubricAndFaculty");
+            return RedirectToAction("Success");
         }
 
 

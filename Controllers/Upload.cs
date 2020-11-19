@@ -39,6 +39,10 @@ namespace parser.Controllers
         {
             return View(new UploadRubricAndFacultyData());
         }
+        public IActionResult RubricContent()
+        {
+            return View(new UploadRubricContent());
+        }
         [HttpPost]
         public IActionResult Rubric(UploadRubricIdData rubricIdData)
         {
@@ -62,6 +66,12 @@ namespace parser.Controllers
         {
             var faculties = _rubricAndFacultyService.ParseUploadFileToFaculty(rubricAndFacultyData);
             foreach (var faculty in faculties) System.Console.WriteLine($"{faculty.Id} {faculty.FirstName} {faculty.LastName} {faculty.RubricId}");
+            return RedirectToAction("Success");
+        }
+        [HttpPost]
+        public IActionResult RubricContent(UploadRubricContent rubricContentData)
+        {
+            
             return RedirectToAction("Success");
         }
 

@@ -8,6 +8,6 @@ namespace parser.Models
 {
     public class UploadRubricContent
     {
-        public IFormFile upload { get; set; }
+        public IFormFile Upload { get; set; }
     }
 }

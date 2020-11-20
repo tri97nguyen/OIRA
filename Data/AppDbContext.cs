@@ -13,6 +13,7 @@ namespace parser.Data
         public DbSet<Rubric> Rubrics { get; set; }
         public DbSet<Score> Scores { get; set; }
         public DbSet<RubricCriteria> RubricCriteria { get; set; }
+        public DbSet<RubricCriteriaElement> RubricCriteriaElements { get; set; }
         public DbSet<Artifact> Artifacts { get; set; }
         public DbSet<CourseSection> CourseSections { get; set; }
         public DbSet<Faculty> Faculty { get; set; }

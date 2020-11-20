@@ -17,16 +17,6 @@ namespace parser
         {
             _appDbContext = appDbContext;
         }
-
-        private IEnumerable<string> ReadAsList(IFormFile file)
-        {
-            var result = new List<string>();
-            using (var reader = new StreamReader(file.OpenReadStream()))
-            {
-                while (reader.Peek() >= 0) result.Add(reader.ReadLine());
-            }
-            return result;
-        }
         private Rubric MapLineToRubric(string line)
         {
             string[] column = line.Split(',');
@@ -34,7 +24,7 @@ namespace parser
         }
         public IEnumerable<Rubric> ParseUploadFileToRubrics(UploadRubricIdData rubricIdData)
         {
-            IEnumerable<string> content = ReadAsList(rubricIdData.uploadFile);
+            IEnumerable<string> content = Upload.ReadAsList(rubricIdData.uploadFile);
             var rubrics = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToRubric(line)).ToList();
             foreach (var rubric in rubrics)
             {

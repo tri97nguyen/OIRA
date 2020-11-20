@@ -1,10 +1,15 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using parser;
+using parser.Data;
 using parser.Models;
+using static parser.Upload;
 
 namespace parser.Controllers
 {
@@ -69,8 +74,27 @@ namespace parser.Controllers
             return RedirectToAction("Success");
         }
         [HttpPost]
-        public IActionResult RubricContent(UploadRubricContent rubricContentData)
+        public IActionResult RubricContent(UploadRubricContent rubricContentData, [FromServices] AppDbContext context)
         {
+            IEnumerable<string> content = parser.Upload.ReadAsList(rubricContentData.Upload);
+            foreach (string line in content)
+            {
+                var column = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+
+                if (column[0].Length == 0) continue; // skip ,,,,
+                RubricCriteria crit = new RubricCriteria { CriteriaText = column[0] };
+                List<RubricCriteriaElement> elementList = new List<RubricCriteriaElement>();
+                for (int i = 1; i < column.Length; i++)
+                {
+                    if (column[i].Length == 0) continue;
+                    var critElement = new RubricCriteriaElement { CriteriaText = column[i] };
+                    elementList.Add(critElement);
+                }
+                crit.RubricCriteriaElements = elementList;
+                context.Add(crit);
+                context.SaveChanges();                
+                
+            }
             
             return RedirectToAction("Success");
         }

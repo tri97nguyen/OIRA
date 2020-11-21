@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<parser.Models.Faculty>
 
 @{
-    ViewData["Title"] = "FacultyAndCourse";
+    ViewData["Title"] = "FacultyAndRubric";
 }
 
-<h1>FacultyAndCourse</h1>
+<h1>FacultyAndRubric</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -16,13 +16,13 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
+                @Html.DisplayNameFor(model => model.RubricId)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CourseSections)
             </th>
             <th></th>
         </tr>
@@ -34,19 +34,13 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
+                @Html.DisplayFor(modelItem => item.RubricId)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @if (item.CourseSections != null)
-                {
-                    @foreach (var course in item.CourseSections.ToList())
-                    {
-                        @Html.DisplayFor(modelItem => course.Name)
-                    }
-                }
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |

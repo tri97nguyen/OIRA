@@ -20,5 +20,10 @@ namespace parser.Controllers
             IList<Faculty> faculty =  this._appDbContext.Faculty.Include(i => i.CourseSections).ToList();
             return View(faculty);
         }
+        public IActionResult FacultyAndRubric()
+        {
+            IList<Faculty> faculty = this._appDbContext.Faculty.OrderByDescending(f => f.RubricId).ToList();
+            return View(faculty);
+        }
     }
 }

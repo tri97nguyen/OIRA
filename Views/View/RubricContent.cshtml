@@ -1,0 +1,44 @@
+﻿@model IEnumerable<parser.Models.RubricCriteria>
+
+@{
+    ViewData["Title"] = "RubricContent";
+}
+
+<h1>RubricContent</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Rubric)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CriteriaText)
+            </th>
+            @foreach (var number in new int[] { 1,2,3,4})
+            {
+                <th>@Html.DisplayFor(num => number)</th>
+            }
+            
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Rubric.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CriteriaText)
+            </td>
+            @foreach (var element in item.RubricCriteriaElements)
+            {
+                <td>@Html.DisplayFor(ele => element.CriteriaText)</td>
+            }
+        </tr>
+}
+    </tbody>
+</table>

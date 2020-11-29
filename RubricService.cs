@@ -22,27 +22,15 @@ namespace parser
             string[] column = line.Split(',');
             return new Rubric { Id = column[0], Name = column[1] };
         }
-        public IEnumerable<Rubric> ParseUploadFileToRubrics(UploadRubricIdData rubricIdData)
+        public string ParseUploadFileToRubrics(UploadRubricIdData rubricIdData)
         {
             IEnumerable<string> content = Upload.ReadAsList(rubricIdData.uploadFile);
             var rubrics = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToRubric(line)).ToList();
             foreach (var rubric in rubrics)
-            {
-                if (_appDbContext.Rubrics.Find(rubric.Id) != null)
-                {
-
-                }
-                else
-                {
+                if (_appDbContext.Rubrics.Find(rubric.Id) == null)
                     _appDbContext.Add(rubric);
-                }
-            }
             _appDbContext.SaveChanges();
-            return rubrics;
-        }
-        private void ForeignConstraintTemporaryHelper()
-        {
-
+            return null;
         }
     }
 }

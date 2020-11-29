@@ -9,10 +9,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.EntityFrameworkCore;
-using parser.Data;
+using oira.Data;
 using MySqlConnector;
 
-namespace parser
+namespace oira
 {
     public class Startup
     {

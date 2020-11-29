@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using parser.Data;
-using parser.Models;
+using oira.Data;
+using oira.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace parser.Controllers
+namespace oira.Controllers
 {
     public class View : Controller
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace parser.Models
+namespace oira.Models
 {
     public class RubricCriteriaElement
     {

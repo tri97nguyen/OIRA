@@ -1,14 +1,14 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using parser.Data;
-using parser.Models;
+using oira.Data;
+using oira.Models;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
 
-namespace parser
+namespace oira
 {
     public class RubricAndFacultyService
     {

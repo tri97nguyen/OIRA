@@ -6,12 +6,12 @@ using System.Text;
 using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using parser;
-using parser.Data;
-using parser.Models;
-using static parser.Upload;
+using oira;
+using oira.Data;
+using oira.Models;
+using static oira.Upload;
 
-namespace parser.Controllers
+namespace oira.Controllers
 {
     public class Upload : Controller
     {

@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace parser.Models
+namespace oira.Models
 {
 
     // TODO: finish XML comments

@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using parser.Models;
+using oira.Models;
 
-namespace parser.Data
+namespace oira.Data
 {
     public class AppDbContext : DbContext
     {

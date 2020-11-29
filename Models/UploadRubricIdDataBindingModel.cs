@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 
-namespace parser.Models
+namespace oira.Models
 {
     public class UploadRubricIdData
     {

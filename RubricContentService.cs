@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using parser.Data;
-using parser.Models;
+using oira.Data;
+using oira.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace parser
+namespace oira
 {
     public class RubricContentService
     {

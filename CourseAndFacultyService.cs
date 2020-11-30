@@ -29,7 +29,7 @@ namespace parser
             return new CourseSection { FacultyId = Convert.ToInt32(column[0]), Name = column[3], CRN = Convert.ToInt32(column[4])};
         }
         
-        public IEnumerable<Faculty> ParseUploadFileToFaculty(UploadCourseAndFacultyData facultyData)
+        public void ParseUploadFileToFaculty(UploadCourseAndFacultyData facultyData)
         {
             IEnumerable<string> content = Upload.ReadAsList(facultyData.uploadFile);
             var faculties = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToFaculty(line)).ToList();
@@ -46,10 +46,10 @@ namespace parser
                 }
             }
             _appDbContext.SaveChanges();
-            return faculties;
+            
         }
 
-        public IEnumerable<CourseSection> ParseUploadFileToCourseSection(UploadCourseAndFacultyData courseSectionData)
+        public void ParseUploadFileToCourseSection(UploadCourseAndFacultyData courseSectionData)
         {
             IEnumerable<string> content = Upload.ReadAsList(courseSectionData.uploadFile);
             var courseSections = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToCourseSection(line)).ToList();
@@ -66,12 +66,7 @@ namespace parser
                 
             }
             _appDbContext.SaveChanges();
-            return courseSections;
-        }
-
-        private void ForeignConstraintTemporaryHelper()
-        {
-
+            
         }
     }
 }

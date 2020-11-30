@@ -36,11 +36,10 @@ namespace parser
             return faculty;
         }
 
-        public IEnumerable<Faculty> ParseUploadFileToFaculty(UploadRubricAndFacultyData facultyData)
+        public void ParseUploadFileToFaculty(UploadRubricAndFacultyData facultyData)
         {
             IEnumerable<string> content = Upload.ReadAsList(facultyData.uploadFile);
-            var faculties = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToFaculty(line)).ToList();
-            return faculties;
+            content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToFaculty(line)).ToList();
         }
 
         private void ForeignConstraintTemporaryHelper()

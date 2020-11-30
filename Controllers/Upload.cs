@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using parser;
 using parser.Data;
+using parser.Fitlers;
 using parser.Models;
 using static parser.Upload;
 
@@ -49,35 +50,32 @@ namespace parser.Controllers
             return View(new UploadRubricContent());
         }
         [HttpPost]
+        [UploadExceptionFilter]
         public IActionResult Rubric(UploadRubricIdData rubricIdData)
         {
-            try
-            {
-                _rubricService.ParseUploadFileToRubrics(rubricIdData);
-                return RedirectToAction(nameof(Success));
-            }
-            catch (Exception)
-            {
-                ViewData["Message"] = "check your csv format with the guideline. You could be upload an incorrect file";
-                return View("Failure");
-            }
+            
+            _rubricService.ParseUploadFileToRubrics(rubricIdData);
+            return RedirectToAction(nameof(Success));
         }
 
         [HttpPost]
+        [UploadExceptionFilter]
         public IActionResult CourseAndFaculty(UploadCourseAndFacultyData courseAndFacultyData)
         {
-            var faculties = _courseAndFacultyService.ParseUploadFileToFaculty(courseAndFacultyData);
-            var courses = _courseAndFacultyService.ParseUploadFileToCourseSection(courseAndFacultyData);
+            _courseAndFacultyService.ParseUploadFileToFaculty(courseAndFacultyData);
+            _courseAndFacultyService.ParseUploadFileToCourseSection(courseAndFacultyData);
             return RedirectToAction("Success");
         }
 
         [HttpPost]
+        [UploadExceptionFilter]
         public IActionResult RubricAndFaculty(UploadRubricAndFacultyData rubricAndFacultyData)
         {
-            var faculties = _rubricAndFacultyService.ParseUploadFileToFaculty(rubricAndFacultyData);
+            _rubricAndFacultyService.ParseUploadFileToFaculty(rubricAndFacultyData);
             return RedirectToAction("Success");
         }
         [HttpPost]
+        [UploadExceptionFilter]
         public IActionResult RubricContent(UploadRubricContent rubricContentData, [FromServices] AppDbContext context)
         {
             RubricContentService.ParseRubricContent(rubricContentData, context);

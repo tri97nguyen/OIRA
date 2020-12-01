@@ -75,7 +75,7 @@ namespace parser.Controllers
             return RedirectToAction("Success");
         }
         [HttpPost]
-        [UploadExceptionFilter]
+        //[UploadExceptionFilter]
         public IActionResult RubricContent(UploadRubricContent rubricContentData, [FromServices] AppDbContext context)
         {
             RubricContentService.ParseRubricContent(rubricContentData, context);

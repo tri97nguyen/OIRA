@@ -1,7 +1,10 @@
 ﻿@model IEnumerable<parser.Models.RubricCriteria>
 
 @{
-    var elementNum = Model.ToList()[0].RubricCriteriaElements.Count;
+    int elementNum = 0;
+    if (Model.ToList().Count > 0)
+        elementNum = Model.ToList()[0].RubricCriteriaElements.Count;
+    
     ViewData["Title"] = "RubricContent";
 
 }

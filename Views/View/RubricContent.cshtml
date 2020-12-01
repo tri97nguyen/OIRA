@@ -10,10 +10,6 @@
 }
 
 <h1>RubricContent</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
 <table class="table">
     <thead>
         <tr>
@@ -34,7 +30,7 @@
 @foreach (var criterion in Model) {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => criterion.Rubric.Id)
+                @Html.DisplayFor(modelItem => criterion.RubricId)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => criterion.CriteriaText)

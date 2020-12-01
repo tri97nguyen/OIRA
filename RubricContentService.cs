@@ -14,12 +14,13 @@ namespace parser
         public static void ParseRubricContent(UploadRubricContent rubricContentData, AppDbContext context)
         {
             IEnumerable<string> content = Upload.ReadAsList(rubricContentData.Upload);
+            string rubricInfo = content.First();
+            var matchedRubric = getRubricName(rubricInfo, context);
+            content = content.Skip(1).ToList();
             foreach (string line in content)
             {
                 // split csv with double quote having double quote "" in column
                 var column = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
-
-                if (column[0].Length == 0) continue; // skip ,,,,
                 RubricCriteria crit = new RubricCriteria { CriteriaText = column[0] };
                 List<RubricCriteriaElement> elementList = new List<RubricCriteriaElement>();
                 for (int i = 1; i < column.Length; i++)
@@ -32,31 +33,31 @@ namespace parser
                 var existingCriteria = context.RubricCriteria.Include(criteria => criteria.RubricCriteriaElements).Where(criteria => criteria.CriteriaText.Equals(crit.CriteriaText)).FirstOrDefault();
                 if (existingCriteria != null)
                 {
-                    Console.WriteLine("before appending");
-                    foreach (var ele in existingCriteria.RubricCriteriaElements)
-                    {
-
-                        Console.WriteLine($"criteria element is {ele}");
-                    }
-
-                    Console.WriteLine("after appending");
+                    existingCriteria.RubricId = matchedRubric.Id;
                     existingCriteria.RubricCriteriaElements = elementList;
-                    Console.WriteLine(existingCriteria.RubricCriteriaElements);
-                    foreach (var ele in existingCriteria.RubricCriteriaElements.ToList())
-                    {
-                        Console.WriteLine($"criteria element is {ele}");
-                    }
                 }
                 else
                 {
-                    Console.WriteLine($"{crit} is new");
+                    crit.RubricId = matchedRubric.Id;
                     crit.RubricCriteriaElements = elementList;
                     context.Add(crit);
                 }
-                
                 context.SaveChanges();
-
             }
+        }
+
+        private static Rubric getRubricName(string rubricInfo, AppDbContext context)
+        {
+            var column = Regex.Split(rubricInfo, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
+            var rubricName = column[0];
+            var matchedRubric = context.Rubrics
+                                            .Where(rubric => rubric.Name.Equals(rubricName, StringComparison.InvariantCultureIgnoreCase))
+                                            .FirstOrDefault();
+            if (matchedRubric == null)
+            {
+                throw new Exception("Rubric metadata is required before rubric content");
+            }
+            return matchedRubric;
         }
     }
 }

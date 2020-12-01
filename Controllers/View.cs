@@ -27,8 +27,15 @@ namespace parser.Controllers
         }
         public IActionResult RubricContent()
         {
-            IList<RubricCriteria> rubricContent = _appDbContext.RubricCriteria.Include(r => r.RubricCriteriaElements).ToList();
+            IList<RubricCriteria> rubricContent = _appDbContext.RubricCriteria.Include(r => r.RubricCriteriaElements)
+                                                                                //.Include(r => r.RubricId)                                     
+                                                                                .ToList();
             return View(rubricContent);
+        }
+        public IActionResult RubricMetadata()
+        {
+            IList<Rubric> rubricMetadata = _appDbContext.Rubrics.ToList();
+            return View(rubricMetadata);
         }
     }
 }

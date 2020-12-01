@@ -11,26 +11,40 @@
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container">
-                <a class="navbar-brand" asp-area="" asp-controller="view" asp-action="FacultyAndCourse">View Faculty & Course</a>
+                @*<a class="navbar-brand" asp-area="" asp-controller="view" asp-action="FacultyAndCourse">View Faculty & Course</a>
                 <a class="navbar-brand" asp-area="" asp-controller="view" asp-action="FacultyAndRubric">View Faculty & Rubric</a>
-                <a class="navbar-brand" asp-area="" asp-controller="view" asp-action="RubricContent">Rubric Content</a>
+                <a class="navbar-brand" asp-area="" asp-controller="view" asp-action="RubricContent">Rubric Content</a>*@
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item"><h3>View</h3></li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="rubric">Upload Rubric</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="view" asp-action="FacultyAndCourse">Faculty & Course</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="RubricContent">Upload Rubric Content</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="view" asp-action="FacultyAndRubric">Faculty & Rubric</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="CourseAndFaculty">Upload Course & Faculty</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="view" asp-action="RubricMetadata">Rubric Metadata</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="RubricAndFaculty">Upload Rubric & Faculty</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="view" asp-action="RubricContent">Rubric Content</a>
+                        </li>
+                        <li class="nav-item"><h3>Upload</h3></li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="rubric">Rubric</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="RubricContent">Rubric Content</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="CourseAndFaculty">Course & Faculty</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="upload" asp-action="RubricAndFaculty">Rubric & Faculty</a>
                         </li>
                     </ul>
                 </div>

@@ -27,8 +27,12 @@ namespace parser
             IEnumerable<string> content = Upload.ReadAsList(rubricIdData.uploadFile);
             var rubrics = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToRubric(line)).ToList();
             foreach (var rubric in rubrics)
-                if (_appDbContext.Rubrics.Find(rubric.Id) == null)
-                    _appDbContext.Add(rubric);
+            {
+                var matchedRubric = _appDbContext.Rubrics.Find(rubric.Id);
+                if (matchedRubric == null) _appDbContext.Add(rubric);
+                else matchedRubric.Name = rubric.Name;
+            }
+                
             _appDbContext.SaveChanges();
             return null;
         }

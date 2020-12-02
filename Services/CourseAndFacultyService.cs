@@ -21,23 +21,33 @@ namespace parser
         private Faculty MapLineToFaculty(string line)
         {
             string[] column = line.Split(',');
-            return new Faculty {Id = Convert.ToInt32(column[0]), FirstName = column[1], LastName = column[2]};
+            CourseSection course = new CourseSection { CRN = Convert.ToInt32(column[4]), 
+                                                        Name = column[3], 
+                                                        FacultyId = Convert.ToInt32(column[0]) };
+            ICollection<CourseSection> courseList = new List<CourseSection>() { course };
+
+            return new Faculty {Id = Convert.ToInt32(column[0]), FirstName = column[1], LastName = column[2], CourseSections = courseList};
         }
-        private CourseSection MapLineToCourseSection(string line)
-        {
-            string[] column = line.Split(',');
-            return new CourseSection { FacultyId = Convert.ToInt32(column[0]), Name = column[3], CRN = Convert.ToInt32(column[4])};
-        }
+        //private CourseSection MapLineToCourseSection(string line)
+        //{
+        //    string[] column = line.Split(',');
+        //    return new CourseSection { FacultyId = Convert.ToInt32(column[0]), Name = column[3], CRN = Convert.ToInt32(column[4])};
+        //}
         
-        public void ParseUploadFileToFaculty(UploadCourseAndFacultyData facultyData)
+
+        public void ParseUploadFileToFacultyAndCourse(UploadCourseAndFacultyData facultyData)
         {
             IEnumerable<string> content = Upload.ReadAsList(facultyData.uploadFile);
             var faculties = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToFaculty(line)).ToList();
             foreach (var faculty in faculties)
             {
-                if (_appDbContext.Faculty.Find(faculty.Id) != null)
+                var matchedFaculty = _appDbContext.Faculty.Include(f => f.CourseSections).Where(f => f.Id == faculty.Id).FirstOrDefault();
+                
+                if (matchedFaculty != null)
                 {
-                    
+                    matchedFaculty.FirstName = faculty.FirstName;
+                    matchedFaculty.LastName = faculty.LastName;
+                    matchedFaculty.CourseSections = faculty.CourseSections;
                 }
                 else
                 {
@@ -49,24 +59,29 @@ namespace parser
             
         }
 
-        public void ParseUploadFileToCourseSection(UploadCourseAndFacultyData courseSectionData)
-        {
-            IEnumerable<string> content = Upload.ReadAsList(courseSectionData.uploadFile);
-            var courseSections = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToCourseSection(line)).ToList();
-            foreach (var courseSection in courseSections)
-            {
-                if(_appDbContext.CourseSections.Find(courseSection.CRN) != null)
-                {
-                    
-                }
-                else
-                {
-                    _appDbContext.Add(courseSection);
-                }
-                
-            }
-            _appDbContext.SaveChanges();
-            
-        }
+        /**
+         * parse course individually. Now handled in ParseUploadFileToFacultyAndCourse
+        * 
+        */
+
+        //public void ParseUploadFileToCourseSection(UploadCourseAndFacultyData courseSectionData)
+        //{
+        //    IEnumerable<string> content = Upload.ReadAsList(courseSectionData.uploadFile);
+        //    var courseSections = content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToCourseSection(line)).ToList();
+        //    foreach (var courseSection in courseSections)
+        //    {
+        //        if(_appDbContext.CourseSections.Find(courseSection.CRN) != null)
+        //        {
+
+        //        }
+        //        else
+        //        {
+        //            _appDbContext.Add(courseSection);
+        //        }
+
+        //    }
+        //    _appDbContext.SaveChanges();
+
+        //}
     }
 }

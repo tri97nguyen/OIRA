@@ -34,8 +34,8 @@ namespace parser
         }
         public static string GetDatabaseConnectionString(IConfiguration config)
         {
-            //return String.Format(config["ConnectionStrings:OIRAMySql"], GetDatabaseUsername(config), GetDatabasePassword(config));
-            return String.Format(config["ConnectionStrings:AwsConnection"], config["Aws:MySQLPassword"]); // Connect to AWS
+            return String.Format(config["ConnectionStrings:OIRAMySql"], GetDatabaseUsername(config), GetDatabasePassword(config));
+            //return String.Format(config["ConnectionStrings:AwsConnection"], config["Aws:MySQLPassword"]); // Connect to AWS
         }
         internal string DatabasePassword { get { return GetDatabasePassword(Configuration); } }
         public string DatabaseConnectionString { get { return GetDatabaseConnectionString(Configuration); } }

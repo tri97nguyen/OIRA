@@ -62,8 +62,8 @@ namespace parser.Controllers
         [UploadExceptionFilter]
         public IActionResult CourseAndFaculty(UploadCourseAndFacultyData courseAndFacultyData)
         {
-            _courseAndFacultyService.ParseUploadFileToFaculty(courseAndFacultyData);
-            _courseAndFacultyService.ParseUploadFileToCourseSection(courseAndFacultyData);
+            _courseAndFacultyService.ParseUploadFileToFacultyAndCourse(courseAndFacultyData);
+            //_courseAndFacultyService.ParseUploadFileToCourseSection(courseAndFacultyData); // legacy code: parse course individually
             return RedirectToAction("Success");
         }
 

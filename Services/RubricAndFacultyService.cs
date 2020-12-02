@@ -22,6 +22,7 @@ namespace parser
             string[] column = line.Split(',');
             var facultyId = int.Parse(column[0]);
             var faculty = _appDbContext.Faculty.Find(facultyId);
+            var rubric = _appDbContext.Rubrics;
             if (faculty != null)
             {
                 faculty.RubricId = column[3];
@@ -42,9 +43,5 @@ namespace parser
             content.Skip(1).Where(line => line.Length > 0).Select(line => MapLineToFaculty(line)).ToList();
         }
 
-        private void ForeignConstraintTemporaryHelper()
-        {
-
-        }
     }
 }

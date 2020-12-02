@@ -23,10 +23,10 @@ namespace parser
                 var column = Regex.Split(line, ",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
                 RubricCriteria crit = new RubricCriteria { CriteriaText = column[0] };
                 List<RubricCriteriaElement> elementList = new List<RubricCriteriaElement>();
-                for (int i = 1; i < column.Length; i++)
+                for (int i = column.Length-1; i > 0; i--)
                 {
                     if (column[i].Length == 0) continue; // skip empty column which is ,,
-                    var critElement = new RubricCriteriaElement { CriteriaText = column[i] };
+                    var critElement = new RubricCriteriaElement { CriteriaText = column[i], ScoreValue = 5-i }; // someone please help with this. I dont know why my code worked
                     elementList.Add(critElement);
                 }
                 
@@ -42,6 +42,7 @@ namespace parser
                     crit.RubricCriteriaElements = elementList;
                     context.Add(crit);
                 }
+
                 context.SaveChanges();
             }
         }

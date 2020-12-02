@@ -30,6 +30,8 @@ namespace parser.Controllers
             IList<RubricCriteria> rubricContent = _appDbContext.RubricCriteria.Include(r => r.RubricCriteriaElements)
                                                                                 //.Include(r => r.RubricId)                                     
                                                                                 .ToList();
+            foreach (var crit in rubricContent)
+                crit.RubricCriteriaElements = crit.RubricCriteriaElements.OrderByDescending(ele => ele.ScoreValue).ToList();
             return View(rubricContent);
         }
         public IActionResult RubricMetadata()

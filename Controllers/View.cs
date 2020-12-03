@@ -17,12 +17,12 @@ namespace parser.Controllers
         }
         public IActionResult FacultyAndCourse()
         {
-            IList<Faculty> faculty =  this._appDbContext.Faculty.Include(i => i.CourseSections).ToList();
+            IList<Faculty> faculty =  this._appDbContext.Faculty.Where(f => f.CourseSections.Count > 0).Include(i => i.CourseSections).ToList();
             return View(faculty);
         }
         public IActionResult FacultyAndRubric()
         {
-            IList<Faculty> faculty = this._appDbContext.Faculty.OrderByDescending(f => f.RubricId).ToList();
+            IList<Faculty> faculty = this._appDbContext.Faculty.Where(f => f.RubricId != null).OrderByDescending(f => f.RubricId).ToList();
             return View(faculty);
         }
         public IActionResult RubricContent()
